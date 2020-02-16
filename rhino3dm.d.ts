@@ -1,5 +1,7 @@
 declare module 'rhino3dm' {
 
+	export default function rhino3dm() : Promise<RhinoModule>;
+
 	enum ActiveSpace {
 		None,
 		ModelSpace,
@@ -44,6 +46,25 @@ declare module 'rhino3dm' {
 		Camera,
 		Clip,
 		Screen
+	}
+
+	enum LineCircleIntersection {
+		None,
+		Single,
+		Multiple
+	}
+
+	enum LineCylinderIntersection {
+		None,
+		Single,
+		Multiple,
+		Overlap
+	}
+
+	enum LineSphereIntersection {
+		None,
+		Single,
+		Multiple
 	}
 
 	enum MeshType {
@@ -132,6 +153,19 @@ declare module 'rhino3dm' {
 		AnyObject
 	}
 
+	enum PlaneSphereIntersection {
+		None,
+		Point,
+		Circle
+	}
+
+	enum SphereSphereIntersection {
+		None,
+		Point,
+		Circle,
+		Overlap
+	}
+
 	enum UnitSystem {
 		None,
 		Angstroms,
@@ -160,6 +194,124 @@ declare module 'rhino3dm' {
 		Parsecs,
 		CustomUnits,
 		Unset
+	}
+
+	class RhinoModule {
+		ActiveSpace: typeof ActiveSpace
+		ComponentIndexType: typeof ComponentIndexType
+		CoordinateSystem: typeof CoordinateSystem
+		LineCircleIntersection: typeof LineCircleIntersection
+		LineCylinderIntersection: typeof LineCylinderIntersection
+		LineSphereIntersection: typeof LineSphereIntersection
+		MeshType: typeof MeshType
+		ObjectColorSource: typeof ObjectColorSource
+		ObjectDecoration: typeof ObjectDecoration
+		ObjectLinetypeSource: typeof ObjectLinetypeSource
+		ObjectMaterialSource: typeof ObjectMaterialSource
+		ObjectMode: typeof ObjectMode
+		ObjectPlotColorSource: typeof ObjectPlotColorSource
+		ObjectPlotWeightSource: typeof ObjectPlotWeightSource
+		ObjectType: typeof ObjectType
+		PlaneSphereIntersection: typeof PlaneSphereIntersection
+		SphereSphereIntersection: typeof SphereSphereIntersection
+		UnitSystem: typeof UnitSystem
+		AnnotationBase: typeof AnnotationBase;
+		Arc: typeof Arc;
+		ArcCurve: typeof ArcCurve;
+		ArchivableDictionary: typeof ArchivableDictionary;
+		BezierCurve: typeof BezierCurve;
+		Bitmap: typeof Bitmap;
+		BoundingBox: typeof BoundingBox;
+		Box: typeof Box;
+		Brep: typeof Brep;
+		BrepEdge: typeof BrepEdge;
+		BrepEdgeList: typeof BrepEdgeList;
+		BrepFace: typeof BrepFace;
+		BrepFaceList: typeof BrepFaceList;
+		BrepSurfaceList: typeof BrepSurfaceList;
+		Circle: typeof Circle;
+		CommonObject: typeof CommonObject;
+		ComponentIndex: typeof ComponentIndex;
+		Cone: typeof Cone;
+		ConstructionPlane: typeof ConstructionPlane;
+		Curve: typeof Curve;
+		CurveProxy: typeof CurveProxy;
+		Cylinder: typeof Cylinder;
+		DimensionStyle: typeof DimensionStyle;
+		DracoCompression: typeof DracoCompression;
+		DracoCompressionOptions: typeof DracoCompressionOptions;
+		Ellipse: typeof Ellipse;
+		Extrusion: typeof Extrusion;
+		File3dm: typeof File3dm;
+		File3dmBitmapTable: typeof File3dmBitmapTable;
+		File3dmDimStyleTable: typeof File3dmDimStyleTable;
+		File3dmGroupTable: typeof File3dmGroupTable;
+		File3dmInstanceDefinitionTable: typeof File3dmInstanceDefinitionTable;
+		File3dmLayerTable: typeof File3dmLayerTable;
+		File3dmMaterialTable: typeof File3dmMaterialTable;
+		File3dmObject: typeof File3dmObject;
+		File3dmObjectTable: typeof File3dmObjectTable;
+		File3dmPlugInData: typeof File3dmPlugInData;
+		File3dmPlugInDataTable: typeof File3dmPlugInDataTable;
+		File3dmRdkDocumentData: typeof File3dmRdkDocumentData;
+		File3dmSettings: typeof File3dmSettings;
+		File3dmStringTable: typeof File3dmStringTable;
+		File3dmViewTable: typeof File3dmViewTable;
+		File3dmWriteOptions: typeof File3dmWriteOptions;
+		FileReference: typeof FileReference;
+		Font: typeof Font;
+		GeometryBase: typeof GeometryBase;
+		Group: typeof Group;
+		Hatch: typeof Hatch;
+		InstanceDefinition: typeof InstanceDefinition;
+		InstanceReference: typeof InstanceReference;
+		Intersection: typeof Intersection;
+		Layer: typeof Layer;
+		Light: typeof Light;
+		Line: typeof Line;
+		LineCurve: typeof LineCurve;
+		Material: typeof Material;
+		Mesh: typeof Mesh;
+		MeshFaceList: typeof MeshFaceList;
+		MeshingParameters: typeof MeshingParameters;
+		MeshNormalList: typeof MeshNormalList;
+		MeshTextureCoordinateList: typeof MeshTextureCoordinateList;
+		MeshTopologyEdgeList: typeof MeshTopologyEdgeList;
+		MeshVertexList: typeof MeshVertexList;
+		ModelComponent: typeof ModelComponent;
+		NurbsCurve: typeof NurbsCurve;
+		NurbsCurveKnotList: typeof NurbsCurveKnotList;
+		NurbsCurvePointList: typeof NurbsCurvePointList;
+		NurbsSurface: typeof NurbsSurface;
+		NurbsSurfaceKnotList: typeof NurbsSurfaceKnotList;
+		NurbsSurfacePointList: typeof NurbsSurfacePointList;
+		ObjectAttributes: typeof ObjectAttributes;
+		Plane: typeof Plane;
+		PlaneSurface: typeof PlaneSurface;
+		Point: typeof Point;
+		Point3d: typeof Point3d;
+		Point3dList: typeof Point3dList;
+		PointCloud: typeof PointCloud;
+		PointCloudItem: typeof PointCloudItem;
+		PointGrid: typeof PointGrid;
+		PolyCurve: typeof PolyCurve;
+		Polyline: typeof Polyline;
+		PolylineCurve: typeof PolylineCurve;
+		RenderSettings: typeof RenderSettings;
+		RevSurface: typeof RevSurface;
+		Sphere: typeof Sphere;
+		SubD: typeof SubD;
+		Surface: typeof Surface;
+		SurfaceProxy: typeof SurfaceProxy;
+		TextDot: typeof TextDot;
+		Texture: typeof Texture;
+		TextureMapping: typeof TextureMapping;
+		Transform: typeof Transform;
+		ViewInfo: typeof ViewInfo;
+		ViewportInfo: typeof ViewportInfo;
+	}
+
+	class AnnotationBase extends GeometryBase {
 	}
 
 	class Arc {
@@ -212,6 +364,12 @@ declare module 'rhino3dm' {
 		 * Gets or sets the sweep -or subtended- angle (in Radians) for this arc segment.
 		 */
 		angleDegrees: number;
+
+		constructor(circle: Circle, angleRadians: number);
+
+		constructor(center: number[], radius: number, angleRadians: number);
+		/** ... */
+		static createFromPoints(): void;
 		/**
 		 * @description Sets arc's angle domain (in radians) as a subdomain of the circle.
 		 * @param {number[]} domain 0 < domain[1] - domain[0] <= 2.0 * RhinoMath.Pi.
@@ -280,6 +438,14 @@ declare module 'rhino3dm' {
 		 * Gets the angles of this arc in degrees.
 		 */
 		angleDegrees: number;
+		/** ... */
+		static createFromArc(): void;
+		/** ... */
+		static createFromArc(): void;
+		/** ... */
+		static createFromCircle(): void;
+		/** ... */
+		static createFromCircle(): void;
 	}
 
 	class ArchivableDictionary {
@@ -398,12 +564,30 @@ declare module 'rhino3dm' {
 		 * The diagonal connects the Min and Max points.
 		 */
 		diagonal: number[];
+
+		constructor(min: number[], max: number[]);
+
+		constructor(minX: number, minY: number, minZ: number, maxX: number, maxY: number, maxZ: number);
 		/**
 		 * @description Finds the closest point on or in the boundingbox.
 		 * @param {number[]} point Sample point.
 		 * @returns {number[]} The point on or in the box that is closest to the sample point.
 		 */
 		closestPoint(point:number[]): number[];
+		/**
+		 * @description Inflates the box with equal amounts in all directions.
+		Inflating with negative amounts may result in decreasing boxes.
+		Invalid boxes can not be inflated.
+		 * @param {number} amount Amount (in model units) to inflate this box in all directions.
+		 */
+		inflate(amount:number): void;
+		/**
+		 * @description Inflates the box with equal amounts in all directions.
+		Inflating with negative amounts may result in decreasing boxes.
+		Invalid boxes can not be inflated.
+		 * @param {number} amount Amount (in model units) to inflate this box in all directions.
+		 */
+		inflate(amount:number): void;
 		/**
 		 * @description Tests a point for boundingbox inclusion. This is the same as calling Contains(point, false)
 		 * @param {number[]} point Point to test.
@@ -584,13 +768,34 @@ declare module 'rhino3dm' {
 		static createTrimmedPlane(plane:Plane,curve:Curve): Brep;
 		/** ... */
 		faces(): void;
+		/** ... */
+		surfaces(): void;
+		/** ... */
+		edges(): void;
 		/**
 		 * @description Reverses entire brep orientation of all faces.
 		 */
 		flip(): void;
 	}
 
+	class BrepEdge extends CurveProxy {
+	}
+
+	class BrepEdgeList {
+		/**
+		 * Gets the number of brep edges.
+		 */
+		count: number;
+		/** ... */
+		get(): void;
+	}
+
 	class BrepFace extends SurfaceProxy {
+		/**
+		 * @description Gets the untrimmed surface that is the base of this face.
+		 * @returns {Surface} A surface, or null on error.
+		 */
+		underlyingSurface(): Surface;
 		/**
 		 * @description Obtains a reference to a specified type of mesh for this brep face.
 		 * @param {MeshType} meshType The mesh type.
@@ -602,6 +807,15 @@ declare module 'rhino3dm' {
 	class BrepFaceList {
 		/**
 		 * Gets the number of brep faces.
+		 */
+		count: number;
+		/** ... */
+		get(): void;
+	}
+
+	class BrepSurfaceList {
+		/**
+		 * Gets the number of surfaces in a brep.
 		 */
 		count: number;
 		/** ... */
@@ -635,6 +849,10 @@ declare module 'rhino3dm' {
 		 * Gets or sets the circumference of this circle.
 		 */
 		circumference: number;
+
+		constructor(radius: number);
+
+		constructor(center: number[], radius: number);
 		/**
 		 * @description Circles use trigonometric parameterization:
 		t -> center + cos(t)*radius*xaxis + sin(t)*radius*yaxis.
@@ -688,14 +906,20 @@ declare module 'rhino3dm' {
 		userStringCount: any;
 		/** ... */
 		encode(): void;
-		/** ... */
-		toJSON(): void;
+		/**
+		 * @description Create a JSON string representation of this object
+		 */
+		toJSON(): string;
 		/** ... */
 		static decode(): void;
 		/** ... */
 		setUserString(): void;
 		/** ... */
 		getUserString(): void;
+		/** ... */
+		getUserStrings(): void;
+		/** ... */
+		rdkXml(): void;
 	}
 
 	class ComponentIndex {
@@ -1033,6 +1257,10 @@ declare module 'rhino3dm' {
 		 * Gets or sets the radius of the cylinder.
 		 */
 		radius: number;
+
+		constructor(baseCircle: Circle);
+
+		constructor(baseCircle: Circle, height: number);
 		/**
 		 * @description Compute the circle at the given elevation parameter.
 		 * @param {number} linearParameter Height parameter for circle section.
@@ -1168,6 +1396,43 @@ declare module 'rhino3dm' {
 		False otherwise.
 		 */
 		isChildOf(): boolean;
+	}
+
+	class DracoCompression {
+		/** ... */
+		static compress(): void;
+		/** ... */
+		static compress(): void;
+		/** ... */
+		static decompressByteArray(): void;
+		/** ... */
+		static decompressBase64String(): void;
+		/** ... */
+		toBase64String(): void;
+	}
+
+	class DracoCompressionOptions {
+		/**
+		 */
+		compressionLevel: any;
+		/**
+		 */
+		positionQuantizationBits: any;
+		/**
+		 */
+		textureCoordintateQuantizationBits: any;
+		/**
+		 */
+		normalQuantizationBits: any;
+		/**
+		 */
+		includeNormals: any;
+		/**
+		 */
+		includeTextureCoordinates: any;
+		/**
+		 */
+		includeVertexColors: any;
 	}
 
 	class Ellipse {
@@ -1403,11 +1668,46 @@ declare module 'rhino3dm' {
 		/** ... */
 		materials(): void;
 		/** ... */
+		bitmaps(): void;
+		/** ... */
 		layers(): void;
+		/** ... */
+		groups(): void;
 		/** ... */
 		dimstyles(): void;
 		/** ... */
 		instanceDefinitions(): void;
+		/** ... */
+		views(): void;
+		/** ... */
+		namedViews(): void;
+		/** ... */
+		plugInData(): void;
+		/** ... */
+		strings(): void;
+		/** ... */
+		encode(): void;
+		/** ... */
+		encode(): void;
+		/** ... */
+		toByteArray(): void;
+		/** ... */
+		toByteArray(): void;
+		/** ... */
+		static decode(): void;
+	}
+
+	class File3dmBitmapTable {
+		/** ... */
+		count(): void;
+		/** ... */
+		get(): void;
+		/** ... */
+		add(): void;
+		/** ... */
+		findIndex(): void;
+		/** ... */
+		findId(): void;
 	}
 
 	class File3dmDimStyleTable {
@@ -1418,7 +1718,7 @@ declare module 'rhino3dm' {
 		/** ... */
 		add(): void;
 		/**
-		 * @description Retrieves a DimensionStyle object based on Index. This seach type of search is discouraged.
+		 * @description Retrieves a DimensionStyle object based on Index. This search type of search is discouraged.
 		We are moving towards using only IDs for all tables.
 		 * @param {number} index The index to search for.
 		 * @returns {DimensionStyle} A DimensionStyle object, or null if none was found.
@@ -1426,6 +1726,30 @@ declare module 'rhino3dm' {
 		findIndex(index:number): DimensionStyle;
 		/** ... */
 		findId(): void;
+		/** ... */
+		findId(): void;
+	}
+
+	class File3dmGroupTable {
+		/** ... */
+		count(): void;
+		/** ... */
+		get(): void;
+		/** ... */
+		add(): void;
+		/**
+		 * @description Retrieves a Group object based on an index. This search type of search is discouraged.
+		We are moving towards using only IDs for all tables.
+		 * @param {number} groupIndex The index to search for.
+		 * @returns {Group} A Group object, or null if none was found.
+		 */
+		findIndex(groupIndex:number): Group;
+		/**
+		 * @description Finds a Group given its name.
+		 * @param {string} name The name of the Group to be searched.
+		 * @returns {Group} A Group, or null on error.
+		 */
+		findName(name:string): Group;
 	}
 
 	class File3dmInstanceDefinitionTable {
@@ -1464,7 +1788,7 @@ declare module 'rhino3dm' {
 		 */
 		findName(name:string,parentId:string): Layer;
 		/**
-		 * @description Retrieves a Layer object based on Index. This seach type of search is discouraged.
+		 * @description Retrieves a Layer object based on Index. This search type of search is discouraged.
 		We are moving towards using only IDs for all tables.
 		 * @param {number} index The index to search for.
 		 * @returns {Layer} A Layer object, or null if none was found.
@@ -1482,7 +1806,7 @@ declare module 'rhino3dm' {
 		/** ... */
 		add(): void;
 		/**
-		 * @description Retrieves a material based on Index. This seach type of search is discouraged.
+		 * @description Retrieves a material based on Index. This search type of search is discouraged.
 		We are moving towards using only IDs for all tables.
 		 * @param {number} index The index to search for.
 		 * @returns {Material} A material, or null if none was found.
@@ -1507,10 +1831,13 @@ declare module 'rhino3dm' {
 		/** ... */
 		get(): void;
 		/**
-		 * @description Gets the bounding box containing every object in this table.
-		 * @returns {BoundingBox} The computed bounding box.
+		 * @description Adds a point object to the table.
+		 * @param {number} x X component of point coordinate.
+		 * @param {number} y Y component of point coordinate.
+		 * @param {number} z Z component of point coordinate.
+		 * @returns {string} id of new object.
 		 */
-		getBoundingBox(): BoundingBox;
+		addPoint(x:number,y:number,z:number): string;
 		/**
 		 * @description Adds a point object to the table.
 		 * @param {number} x X component of point coordinate.
@@ -1520,6 +1847,12 @@ declare module 'rhino3dm' {
 		 */
 		addPoint(x:number,y:number,z:number): string;
 		/**
+		 * @description Adds a point cloud object to the document.
+		 * @param {PointCloud} cloud PointCloud to add.
+		 * @returns {string} A unique identifier for the object.
+		 */
+		addPointCloud(cloud:PointCloud): string;
+		/**
 		 * @description Adds a line object to Rhino.
 		 * @param {number[]} from A line start point.
 		 * @param {number[]} to A line end point.
@@ -1527,11 +1860,23 @@ declare module 'rhino3dm' {
 		 */
 		addLine(from:number[],to:number[]): string;
 		/**
+		 * @description Adds a curve object to the document representing an arc.
+		 * @param {Arc} arc An arc.
+		 * @returns {string} A unique identifier for the object.
+		 */
+		addArc(arc:Arc): string;
+		/**
 		 * @description Adds a curve object to the document representing a circle.
 		 * @param {Circle} circle A circle to add.
 		 * @returns {string} A unique identifier for the object.
 		 */
 		addCircle(circle:Circle): string;
+		/**
+		 * @description Adds a curve object to the document representing an ellipse.
+		 * @param {Ellipse} ellipse An ellipse to add.
+		 * @returns {string} A unique identifier for the object.
+		 */
+		addEllipse(ellipse:Ellipse): string;
 		/**
 		 * @description Adds a surface object to the document representing a sphere.
 		 * @param {Sphere} sphere A sphere to add.
@@ -1552,6 +1897,18 @@ declare module 'rhino3dm' {
 		 */
 		addTextDot(text:string,location:number[]): string;
 		/**
+		 * @description Adds a surface object to Rhino.
+		 * @param {Surface} surface A duplicate of this surface is added to Rhino.
+		 * @returns {string} A unique identifier for the object.
+		 */
+		addSurface(surface:Surface): string;
+		/**
+		 * @description Adds an extrusion object to Rhino.
+		 * @param {Extrusion} extrusion A duplicate of this extrusion is added to Rhino.
+		 * @returns {string} A unique identifier for the object.
+		 */
+		addExtrusion(extrusion:Extrusion): string;
+		/**
 		 * @description Adds a mesh object to Rhino.
 		 * @param {Mesh} mesh A duplicate of this mesh is added to Rhino.
 		 * @returns {string} A unique identifier for the object.
@@ -1563,6 +1920,35 @@ declare module 'rhino3dm' {
 		 * @returns {string} A unique identifier for the object.
 		 */
 		addBrep(brep:Brep): string;
+		/**
+		 * @description Duplicates the object, then adds a copy of the object to the document.
+		 * @param {File3dmObject} item The item to duplicate and add.
+		 */
+		add(item:File3dmObject): void;
+		/**
+		 * @description Gets the bounding box containing every object in this table.
+		 * @returns {BoundingBox} The computed bounding box.
+		 */
+		getBoundingBox(): BoundingBox;
+		/** ... */
+		deleteItem(): void;
+		/** ... */
+		findId(): void;
+	}
+
+	class File3dmPlugInData {
+	}
+
+	class File3dmPlugInDataTable {
+		/** ... */
+		count(): void;
+		/** ... */
+		get(): void;
+	}
+
+	class File3dmRdkDocumentData extends File3dmPlugInData {
+		/** ... */
+		rdkXml(): void;
 	}
 
 	class File3dmSettings {
@@ -1617,6 +2003,53 @@ declare module 'rhino3dm' {
 		pageUnitSystem: UnitSystem;
 		/** ... */
 		renderSettings(): void;
+	}
+
+	class File3dmStringTable {
+		/** ... */
+		count(): void;
+		/** ... */
+		get(): void;
+		/**
+		 * @description Returns a string value at a given index.
+		 * @param {number} i The index at which to get the value.
+		 * @returns {string} The string value if successful.
+		 */
+		getvalue(i:number): string;
+		/** ... */
+		set(): void;
+		/** ... */
+		count(): void;
+		/**
+		 * @description Removes document strings from the 3dm file.
+		 * @param {string} section name of section to delete. If null, all sections will be deleted.
+		 * @param {string} entry name of entry to delete. If null, all entries will be deleted for a given section.
+		 */
+		delete(section:string,entry:string): void;
+	}
+
+	class File3dmViewTable {
+		/** ... */
+		count(): void;
+		/** ... */
+		get(): void;
+		/** ... */
+		set(): void;
+		/**
+		 * @description Adds a
+		 */
+		add(): void;
+	}
+
+	class File3dmWriteOptions {
+		/**
+		 * File version. Default is major version number of this assembly version.Must be in range [2; current version].Alternatively, 0 is a placeholder for the last valid version.Rhino can read its current version, plus earlier file versions except 1.Use latest version when possible.
+		 */
+		version: number;
+		/**
+		 * Include custom user data in the file. Default is true
+		 */
+		saveUserData: boolean;
 	}
 
 	class FileReference {
@@ -1755,15 +2188,66 @@ declare module 'rhino3dm' {
 		already deformable or was converted into a deformable object.
 		 */
 		makeDeformable(): boolean;
+		/**
+		 * @description Constructs a deep (full) copy of this object.
+		 * @returns {GeometryBase} An object of the same type as this, with the same properties and behavior.
+		 */
+		duplicate(): GeometryBase;
+	}
+
+	class Group extends CommonObject {
+		/**
+		 */
+		name: any;
+		/**
+		 */
+		id: any;
+		/**
+		 */
+		index: any;
 	}
 
 	class Hatch extends GeometryBase {
+		/**
+		 * Gets or sets the index of the pattern in the document hatch pattern table.
+		 */
+		patternIndex: number;
+		/**
+		 * Gets or sets the relative rotation of the pattern.
+		 */
+		patternRotation: number;
+		/**
+		 * Gets or sets the hatchpattern basepoint
+		 */
+		basePoint: number[];
+		/**
+		 * Gets or sets the hatch plane
+		 */
+		plane: Plane;
+		/**
+		 * Gets or sets the scaling factor of the pattern.
+		 */
+		patternScale: number;
+		/**
+		 * @description Scale the hatch's pattern
+		 */
+		scalePattern(): void;
 	}
 
 	class InstanceDefinition extends CommonObject {
 		/**
 		 */
 		description: any;
+		/**
+		 */
+		name: any;
+		/**
+		 */
+		id: any;
+		/** ... */
+		getObjectIds(): void;
+		/** ... */
+		isInstanceGeometryId(): void;
 	}
 
 	class InstanceReference extends GeometryBase {
@@ -1775,11 +2259,87 @@ declare module 'rhino3dm' {
 		xform: any;
 	}
 
+	class Intersection {
+		/** ... */
+		static lineLine(): void;
+		/** ... */
+		static lineLine(): void;
+		/**
+		 * @description Intersects a line and a plane. This function only returns true if the
+		intersection result is a single point (i.e. if the line is coincident with
+		the plane then no intersection is assumed).
+		 * @param {Line} line Line for intersection.
+		 * @param {Plane} plane Plane to intersect.
+		 * @param {number} lineParameter Parameter on line where intersection occurs.
+		If the parameter is not within the {0, 1} Interval then the finite segment
+		does not intersect the plane.
+		 * @returns {boolean} true on success, false on failure.
+		 */
+		static linePlane(line:Line,plane:Plane,lineParameter:number): boolean;
+		/**
+		 * @description Intersects two planes and return the intersection line. If the planes are
+		parallel or coincident, no intersection is assumed.
+		 * @param {Plane} planeA First plane for intersection.
+		 * @param {Plane} planeB Second plane for intersection.
+		 * @param {Line} intersectionLine If this function returns true,
+		the intersectionLine parameter will return the line where the planes intersect.
+		 * @returns {boolean} true on success, false on failure.
+		 */
+		static planePlane(planeA:Plane,planeB:Plane,intersectionLine:Line): boolean;
+		/**
+		 * @description Intersects three planes to find the single point they all share.
+		 * @param {Plane} planeA First plane for intersection.
+		 * @param {Plane} planeB Second plane for intersection.
+		 * @param {Plane} planeC Third plane for intersection.
+		 * @param {number[]} intersectionPoint Point where all three planes converge.
+		 * @returns {boolean} true on success, false on failure. If at least two out of the three planes
+		are parallel or coincident, failure is assumed.
+		 */
+		static planePlanePlane(planeA:Plane,planeB:Plane,planeC:Plane,intersectionPoint:number[]): boolean;
+		/**
+		 * @description Intersects a plane with a sphere using exact calculations.
+		 * @param {Plane} plane Plane to intersect.
+		 * @param {Sphere} sphere Sphere to intersect.
+		 * @param {Circle} intersectionCircle Intersection result.
+		 * @returns {PlaneSphereIntersection} If  is returned, the intersectionCircle has a radius of zero and the center point
+		is the point on the plane closest to the sphere.
+		 */
+		static planeSphere(plane:Plane,sphere:Sphere,intersectionCircle:Circle): PlaneSphereIntersection;
+		/** ... */
+		static lineCircle(): void;
+		/** ... */
+		static lineSphere(): void;
+		/** ... */
+		static lineCylinder(): void;
+		/**
+		 * @description Intersects two spheres using exact calculations.
+		 * @param {Sphere} sphereA First sphere to intersect.
+		 * @param {Sphere} sphereB Second sphere to intersect.
+		 * @param {Circle} intersectionCircle If intersection is a point, then that point will be the center, radius 0.
+		 * @returns {SphereSphereIntersection} The intersection type.
+		 */
+		static sphereSphere(sphereA:Sphere,sphereB:Sphere,intersectionCircle:Circle): SphereSphereIntersection;
+		/**
+		 * @description Intersects an infinite line and an axis aligned bounding box.
+		 * @param {BoundingBox} box BoundingBox to intersect.
+		 * @param {Line} line Line for intersection.
+		 * @param {number} tolerance If tolerance > 0.0, then the intersection is performed against a box
+		that has each side moved out by tolerance.
+		 * @param {number[]} lineParameters The chord from line.PointAt(lineParameters.T0) to line.PointAt(lineParameters.T1) is the intersection.
+		 * @returns {boolean} true if the line intersects the box, false if no intersection occurs.
+		 */
+		static lineBox(box:BoundingBox,line:Line,tolerance:number,lineParameters:number[]): boolean;
+	}
+
 	class Layer extends CommonObject {
 		/**
 		 * Gets or sets the name of this layer.
 		 */
 		name: string;
+		/**
+		 * Gets the full path to this layer. The full path includes nesting information.
+		 */
+		fullPath: string;
 		/**
 		 * Gets or sets the ID of this layer object.
 		 * You typically do not need to assign a custom ID.
@@ -1896,6 +2456,127 @@ declare module 'rhino3dm' {
 		unsetPersistentLocking(): void;
 	}
 
+	class Light extends GeometryBase {
+		/**
+		 * Gets or sets a value that defines if the light is turned on (true) or off (false).
+		 */
+		isEnabled: boolean;
+		/**
+		 * Gets a value indicating whether the light style
+		 * is  CameraPoint or WorldPoint.
+		 */
+		isPointLight: boolean;
+		/**
+		 * Gets a value indicating whether the light style
+		 * is  CameraDirectional or WorldDirectional.
+		 */
+		isDirectionalLight: boolean;
+		/**
+		 * Gets a value indicating whether the light style
+		 * is  CameraSpot or WorldSpot.
+		 */
+		isSpotLight: boolean;
+		/**
+		 * Gets a value indicating whether the light style
+		 * is  WorldLinear.
+		 */
+		isLinearLight: boolean;
+		/**
+		 * Gets a value indicating whether the light style
+		 * is  WorldRectangular.
+		 */
+		isRectangularLight: boolean;
+		/**
+		 * Gets or sets the light or 3D position or location.
+		 */
+		location: number[];
+		/**
+		 * Gets or sets the vector direction of the camera.
+		 */
+		direction: number[];
+		/**
+		 * Gets a perpendicular vector to the camera direction.
+		 */
+		perpendicularDirection: number[];
+		/**
+		 * Gets or sets the light intensity.
+		 */
+		intensity: number;
+		/**
+		 * Gets or sets the light power in watts (W).
+		 */
+		powerWatts: number;
+		/**
+		 * Gets or sets the light power in lumens (lm).
+		 */
+		powerLumens: number;
+		/**
+		 * Gets or sets the light power in candelas (cd).
+		 */
+		powerCandela: number;
+		/**
+		 * Gets or Sets the attenuation vector.
+		 */
+		attenuationVector: number[];
+		/**
+		 * Gets or sets the spot angle in radians.
+		 * Ignored for non-spot lights.angle = 0 to pi/2  (0 to 90 degrees).
+		 */
+		spotAngleRadians: number;
+		/**
+		 * The spot exponent varies from 0.0 to 128.0 and provides
+		 * an exponential interface for controling the focus or
+		 * concentration of a spotlight (like the
+		 * OpenGL GL_SPOT_EXPONENT parameter).  The spot exponent
+		 * and hot spot parameters are linked; changing one will
+		 * change the other.
+		 * A hot spot setting of 0.0 corresponds to a spot exponent of 128.
+		 * A hot spot setting of 1.0 corresponds to a spot exponent of 0.0.
+		 */
+		spotExponent: number;
+		/**
+		 * The hot spot setting runs from 0.0 to 1.0 and is used to
+		 * provides a linear interface for controling the focus or
+		 * concentration of a spotlight.
+		 * A hot spot setting of 0.0 corresponds to a spot exponent of 128.
+		 * A hot spot setting of 1.0 corresponds to a spot exponent of 0.0.
+		 */
+		hotSpot: number;
+		/**
+		 * Gets or sets the height in linear and rectangular lights.
+		 * (ignored for non-linear/rectangular lights.)
+		 */
+		length: number[];
+		/**
+		 * Gets or sets the width in linear and rectangular lights.
+		 * (ignored for non-linear/rectangular lights.)
+		 */
+		width: number[];
+		/**
+		 * Gets or sets the shadow intensity for the light.
+		 */
+		shadowIntensity: number;
+		/**
+		 * Gets or sets the spot light name.
+		 */
+		name: string;
+		/**
+		 * @description Sets the attenuation settings (ignored for "directional" and "ambient" lights).
+		attenuation = 1/(a0 + d*a1 + d^2*a2) where d = distance to light.
+		 * @param {number} a0 The new constant attenuation divisor term.
+		 * @param {number} a1 The new reverse linear attenuation divisor term.
+		 * @param {number} a2 The new reverse quadratic attenuation divisor term.
+		 */
+		setAttenuation(a0:number,a1:number,a2:number): void;
+		/**
+		 * @description Gets the attenuation settings (ignored for "directional" and "ambient" lights).
+		attenuation = 1/(a0 + d*a1 + d^2*a2) where d = distance to light.
+		 * @param {number} d The distance to evaluate.
+		 * @returns {number} 0 if a0 + d*a1 + d^2*a2 <= 0.
+		 */
+		getAttenuation(d:number): number;
+	}
+
 	class Line {
 		/**
 		 * Start point of line segment.
@@ -1912,9 +2593,17 @@ declare module 'rhino3dm' {
 		 * when a new Length is set.
 		 */
 		length: number;
+
+		constructor(from: number[], to: number[]);
 	}
 
 	class LineCurve extends Curve {
+		/**
+		 * Gets or sets the Line value inside this curve.
+		 */
+		line: Line;
+
+		constructor(from: number[], to: number[]);
 	}
 
 	class Material extends CommonObject {
@@ -2027,7 +2716,11 @@ declare module 'rhino3dm' {
 		 */
 		partitionCount: number;
 		/** ... */
+		isManifold(): void;
+		/** ... */
 		vertices(): void;
+		/** ... */
+		topologyEdges(): void;
 		/** ... */
 		faces(): void;
 		/** ... */
@@ -2055,6 +2748,14 @@ declare module 'rhino3dm' {
 		 */
 		destroyPartition(): void;
 		/**
+		 * @description Set texture coordinates using given mapping and applying given transform.
+		Set lazy to false to generate texture coordinates right away.
+		 * @param {TextureMapping} tm Texture mapping
+		 * @param {Transform} xf Transform to apply to the texture mapping
+		 * @param {boolean} lazy Whether to generate lazily (true) or right away (false)
+		 */
+		setTextureCoordinates(tm:TextureMapping,xf:Transform,lazy:boolean): void;
+		/**
 		 * @description Removes any unreferenced objects from arrays, reindexes as needed
 		and shrinks arrays to minimum required size.
 		 * @returns {boolean} true on success, false on failure.
@@ -2073,6 +2774,12 @@ declare module 'rhino3dm' {
 		 * @returns {boolean} true on success
 		 */
 		createPartitions(): boolean;
+		/** ... */
+		toThreejsJSON(): void;
+		/** ... */
+		toThreejsJSON(): void;
+		/** ... */
+		static createFromThreejsJSON(): void;
 	}
 
 	class MeshFaceList {
@@ -2080,15 +2787,128 @@ declare module 'rhino3dm' {
 		 * Gets or sets the number of mesh faces. When getting this can includes invalid faces.
 		 */
 		count: number;
+		/**
+		 * Gets the number of faces that are valid quads (4 corners).
+		 */
+		quadCount: number;
+		/**
+		 * Gets the number of faces that are valid triangles (3 corners).
+		 */
+		triangleCount: number;
+		/**
+		 * Gets or sets the total number of mesh triangles and quads the internal data structure can hold without resizing.
+		 */
+		capacity: number;
 		/** ... */
 		get(): void;
+		/**
+		 * @description Clears the Face list on the mesh.
+		 */
+		clear(): void;
+		/**
+		 * @description Releases all memory allocated to store faces. The list capacity will be 0 after this call.
+		Subsequent calls can add new items.
+		 */
+		destroy(): void;
+		/**
+		 * @description Appends a new mesh face to the end of the mesh face list.
+		 * @param {any} face Face to add.
+		 * @returns {number} The index of the newly added face.
+		 */
+		addFace(face:any): number;
+		/**
+		 * @description Appends a new mesh face to the end of the mesh face list.
+		 * @param {any} face Face to add.
+		 * @returns {number} The index of the newly added face.
+		 */
+		addFace(face:any): number;
+		/**
+		 * @description Sets a face at a specific index of the mesh.
+		 * @param {number} index A position in the list.
+		 * @param {any} face A face.
+		 * @returns {boolean} true if the operation succeeded, otherwise false.
+		 */
+		setFace(index:number,face:any): boolean;
+		/**
+		 * @description Sets a face at a specific index of the mesh.
+		 * @param {number} index A position in the list.
+		 * @param {any} face A face.
+		 * @returns {boolean} true if the operation succeeded, otherwise false.
+		 */
+		setFace(index:number,face:any): boolean;
+		/**
+		 * @description Splits all quads along the short diagonal.
+		 * @returns {boolean} true on success, false on failure.
+		 */
+		convertQuadsToTriangles(): boolean;
+		/**
+		 * @description Splits non-planar quads into two triangles based on given params.
+		 * @param {number} planarTolerance If planarTolerance >= 0, then a quad is split if its vertices
+		are not coplanar.
+		If both planarTolerance = Rhino.RhinoMath.UnsetValue and
+		angleToleranceRadians >= 0.0, then the planarity test is skipped.
+		 * @param {number} angleToleranceRadians If angleToleranceRadians >= 0.0, then a quad is split if the
+		angle between opposite corner normals is > angleToleranceRadians.
+		The corner normal is the normal to the triangle formed by two
+		adjacent edges and the diagonal connecting their endpoints.
+		A quad has four corner normals.
+		If both angleToleranceRadians = Rhino.RhinoMath.UnsetValue and planarTolerance >= 0.0,
+		then the corner normal angle test is skipped.
+		 * @param {number} splitMethod 0 default
+		Currently divides along the short diagonal. This may be
+		changed as better methods are found or preferences change.
+		By passing zero, you let the developers of this code
+		decide what's best for you over time.
+		1 divide along the short diagonal
+		2 divide along the long diagonal
+		3 minimize resulting area
+		4 maximize resulting area
+		5 minimize angle between triangle normals
+		6 maximize angle between triangle normals
+		 * @returns {number} Number of quads that were converted to triangles.
+		 */
+		convertNonPlanarQuadsToTriangles(planarTolerance:number,angleToleranceRadians:number,splitMethod:number): number;
+		/**
+		 * @description Joins adjacent triangles into quads if the resulting quad is 'nice'.
+		 * @param {number} angleToleranceRadians Used to compare adjacent triangles' face normals. For two triangles
+		to be considered, the angle between their face normals has to
+		be <= angleToleranceRadians. When in doubt use RhinoMath.PI/90.0 (2 degrees).
+		 * @param {number} minimumDiagonalLengthRatio ( <= 1.0) For two triangles to be considered the ratio of the
+		resulting quad's diagonals
+		(length of the shortest diagonal)/(length of longest diagonal).
+		has to be >= minimumDiagonalLengthRatio. When in doubt us .875.
+		 * @returns {boolean} true on success, false on failure.
+		 */
+		convertTrianglesToQuads(angleToleranceRadians:number,minimumDiagonalLengthRatio:number): boolean;
+		/**
+		 * @description Attempts to removes degenerate faces from the mesh.
+		Degenerate faces are faces that contains such a combination of indices,
+		that their final shape collapsed in a line or point.Before returning, this method also attempts to repair faces by juggling
+		vertex indices.
+		 * @returns {number} The number of degenerate faces that were removed.
+		 */
+		cullDegenerateFaces(): number;
+		/**
+		 * @description Gets a value indicating whether a face is hidden.
+		A face is hidden if, and only if, at least one of its vertices is hidden.
+		 * @param {number} faceIndex A face index.
+		 * @returns {boolean} true if hidden, false if fully visible.
+		 */
+		isHidden(faceIndex:number): boolean;
+		/**
+		 * @description Returns true if at least one of the face edges are not topologically
+		connected to any other faces.
+		 * @param {number} faceIndex A face index.
+		 * @returns {boolean} true if that face makes the mesh open, otherwise false.
+		 */
+		hasNakedEdges(faceIndex:number): boolean;
 	}
 
 	class MeshingParameters {
 		/**
 		 * Gets or sets how and if textures will be packed.
 		 */
-		textureRange: any;
+		textureRange: number;
 		/**
 		 * Gets or sets whether or not the mesh is allowed to have jagged seams.
 		 * When this flag is set to true, meshes on either side of a Brep Edge will not match up.
@@ -2166,6 +2986,10 @@ declare module 'rhino3dm' {
 		 * Gets or sets the mesh parameter refine angle.
 		 */
 		refineAngle: number;
+
+		constructor(density: number);
+
+		constructor(density: number, minimumEdgeLength: number);
 		/** ... */
 		static default(): void;
 		/** ... */
@@ -2190,6 +3014,18 @@ declare module 'rhino3dm' {
 		get(): void;
 		/** ... */
 		set(): void;
+		/** ... */
+		clear(): void;
+		/** ... */
+		destroy(): void;
+		/** ... */
+		add(): void;
+		/** ... */
+		computeNormals(): void;
+		/** ... */
+		unitizeNormals(): void;
+		/** ... */
+		flip(): void;
 	}
 
 	class MeshTextureCoordinateList {
@@ -2203,17 +3039,88 @@ declare module 'rhino3dm' {
 		set(): void;
 	}
 
+	class MeshTopologyEdgeList {
+		/**
+		 * Gets the amount of edges in this list.
+		 */
+		count: number;
+		/**
+		 * @description Gets the 3d line along an edge.
+		 * @param {number} topologyEdgeIndex The topology edge index.
+		 * @returns {Line} Line along edge. If input is not valid, an Invalid Line is returned.
+		 */
+		edgeLine(topologyEdgeIndex:number): Line;
+	}
+
 	class MeshVertexList {
 		/**
 		 * Gets or sets the number of mesh vertices.
 		 */
 		count: number;
+		/**
+		 * Set to true if the vertices should be stored in double precision
+		 */
+		useDoublePrecisionVertices: boolean;
 		/** ... */
 		setCount(): void;
 		/** ... */
 		get(): void;
 		/** ... */
 		set(): void;
+		/**
+		 * @description Clears the Vertex list on the mesh.
+		 */
+		clear(): void;
+		/**
+		 * @description Releases all memory allocated to store faces. The list capacity will be 0 after this call.
+		Subsequent calls can add new items.
+		 */
+		destroy(): void;
+		/**
+		 * @description Adds a new vertex to the end of the Vertex list.
+		 * @param {number} x X component of new vertex coordinate.
+		 * @param {number} y Y component of new vertex coordinate.
+		 * @param {number} z Z component of new vertex coordinate.
+		 * @returns {number} The index of the newly added vertex.
+		 */
+		add(x:number,y:number,z:number): number;
+		/**
+		 * @description Gets a value indicating whether or not a vertex is hidden.
+		 * @param {number} vertexIndex Index of vertex to query.
+		 * @returns {boolean} true if the vertex is hidden, false if it is not.
+		 */
+		isHidden(vertexIndex:number): boolean;
+		/**
+		 * @description Hides the vertex at the given index.
+		 * @param {number} vertexIndex Index of vertex to hide.
+		 */
+		hide(vertexIndex:number): void;
+		/**
+		 * @description Shows the vertex at the given index.
+		 * @param {number} vertexIndex Index of vertex to show.
+		 */
+		show(vertexIndex:number): void;
+		/**
+		 * @description Hides all vertices in the mesh.
+		 */
+		hideAll(): void;
+		/**
+		 * @description Shows all vertices in the mesh.
+		 */
+		showAll(): void;
+		/**
+		 * @description Removes all vertices that are currently not used by the Face list.
+		 * @returns {number} The number of unused vertices that were removed.
+		 */
+		cullUnused(): number;
+		/**
+		 * @description Merges identical vertices.
+		 * @param {boolean} ignoreNormals If true, vertex normals will not be taken into consideration when comparing vertices.
+		 * @param {boolean} ignoreAdditional If true, texture coordinates, colors, and principal curvatures
+		will not be taken into consideration when comparing vertices.
+		 * @returns {boolean} true if the mesh is changed, in which case the mesh will have fewer vertices than before.
+		 */
+		combineIdentical(ignoreNormals:boolean,ignoreAdditional:boolean): boolean;
 	}
 
 	class ModelComponent extends CommonObject {
@@ -2233,6 +3140,10 @@ declare module 'rhino3dm' {
 		 * Returns true if the NURBS curve has bezier spans (all distinct knots have multiplitity = degree)
 		 */
 		hasBezierSpans: boolean;
+
+		constructor(degree: number, pointCount: number);
+
+		constructor(dimension: number, rational: boolean, order: number, pointCount: number);
 		/**
 		 * @description Gets a non-rational, degree 1 Nurbs curve representation of the line.
 		 * @returns {NurbsCurve} Curve on success, null on failure.
@@ -2266,11 +3177,11 @@ declare module 'rhino3dm' {
 		 * @description Constructs a 3D NURBS curve from a list of control points.
 		 * @param {boolean} periodic If true, create a periodic uniform curve. If false, create a clamped uniform curve.
 		 * @param {number} degree (>=1) degree=order-1.
-		 * @param {Point3d[]} points control vertex locations.
+		 * @param {Point3dList} points control vertex locations.
 		 * @returns {NurbsCurve} new NURBS curve on success
 		null on error.
 		 */
-		static create(periodic:boolean,degree:number,points:Point3d[]): NurbsCurve;
+		static create(periodic:boolean,degree:number,points:Point3dList): NurbsCurve;
 		/**
 		 * @description Increase the degree of this curve.
 		 * @param {number} desiredDegree The desired degree.
@@ -2304,9 +3215,9 @@ declare module 'rhino3dm' {
 		 */
 		grevilleParameter(index:number): number;
 		/**
-		 * @description Gets the greville (edit point) parameter that belongs
+		 * @description Gets the Greville parameter that belongs
 		to the control point at the specified index.
-		 * @param {number} index Index of Greville (Edit) point.
+		 * @param {number} index Index of Greville point.
 		 */
 		grevillePoint(index:number): number[];
 		/** ... */
@@ -2411,14 +3322,6 @@ declare module 'rhino3dm' {
 		 */
 		isRational: boolean;
 		/**
-		 * Gets the order in the U direction.
-		 */
-		orderU: number;
-		/**
-		 * Gets the order in the V direction.
-		 */
-		orderV: number;
-		/**
 		 * @description Constructs a new NURBS surface with internal uninitialized arrays.
 		 * @param {number} dimension The number of dimensions.>= 1. This value is usually 3.
 		 * @param {boolean} isRational true to make a rational NURBS.
@@ -2478,6 +3381,82 @@ declare module 'rhino3dm' {
 		 * @returns {boolean} true on success, false on failure.
 		 */
 		increaseDegreeV(desiredDegree:number): boolean;
+	}
+
+	class NurbsSurfaceKnotList {
+		/**
+		 * Gets the total number of knots in this curve.
+		 */
+		count: number;
+		/**
+		 */
+		isClampedStart: any;
+		/**
+		 */
+		isClampedEnd: any;
+		/** ... */
+		get(): void;
+		/** ... */
+		set(): void;
+		/**
+		 * @description Inserts a knot and update control point locations.
+		Does not change parameterization or locus of curve.
+		 * @param {number} value Knot value to insert.
+		 * @returns {boolean} true on success, false on failure.
+		 */
+		insertKnot(value:number): boolean;
+		/**
+		 * @description Get knot multiplicity.
+		 * @param {number} index Index of knot to query.
+		 * @returns {number} The multiplicity (valence) of the knot.
+		 */
+		knotMultiplicity(index:number): number;
+		/**
+		 * @description Compute a clamped, uniform knot vector based on the current
+		degree and control point count. Does not change values of control
+		vertices.
+		 * @param {number} knotSpacing Spacing of subsequent knots.
+		 * @returns {boolean} true on success, false on failure.
+		 */
+		createUniformKnots(knotSpacing:number): boolean;
+		/**
+		 * @description Compute a clamped, uniform, periodic knot vector based on the current
+		degree and control point count. Does not change values of control
+		vertices.
+		 * @param {number} knotSpacing Spacing of subsequent knots.
+		 * @returns {boolean} true on success, false on failure.
+		 */
+		createPeriodicKnots(knotSpacing:number): boolean;
+		/**
+		 * @description Computes the knots that are superfluous because they are not used in NURBs evaluation.
+		These make it appear so that the first and last surface spans are different from interior spans.
+		http://wiki.mcneel.com/developer/onsuperfluousknot
+		 * @param {boolean} start true if the query targets the first knot. Otherwise, the last knot.
+		 * @returns {number} A component.
+		 */
+		superfluousKnot(start:boolean): number;
+	}
+
+	class NurbsSurfacePointList {
+		/**
+		 */
+		count: any;
+		/**
+		 * Gets the number of control points in the U direction of this surface.
+		 */
+		countU: number;
+		/**
+		 * Gets the number of control points in the V direction of this surface.
+		 */
+		countV: number;
+		/** ... */
+		get(): void;
+		/** ... */
+		set(): void;
+		/** ... */
+		makeRational(): void;
+		/** ... */
+		makeNonRational(): void;
 	}
 
 	class ObjectAttributes extends CommonObject {
@@ -2623,6 +3602,13 @@ declare module 'rhino3dm' {
 		 * @returns {boolean} true if the object has a display mode override for the viewport; otherwise, false.
 		 */
 		hasDisplayModeOverride(viewportId:string): boolean;
+		/** ... */
+		drawColor(): void;
+		/**
+		 * @description Returns an array of GroupCount group indices.  If GroupCount is zero, then GetGroupList() returns null.
+		 * @returns {number[]} An array of group indices. null might be returned in place of an empty array.
+		 */
+		getGroupList(): number[];
 		/**
 		 * @description Adds object to the group with specified index by appending index to
 		group list.
@@ -2651,6 +3637,12 @@ declare module 'rhino3dm' {
 	}
 
 	class Point extends GeometryBase {
+		/**
+		 * Gets or sets the location (position) of this point.
+		 */
+		location: number[];
+
+		constructor(location: number[]);
 	}
 
 	class Point3d {
@@ -2674,6 +3666,8 @@ declare module 'rhino3dm' {
 		 * evaluated in order to get the bounding box of the list.
 		 */
 		boundingBox: BoundingBox;
+
+		constructor(initialCapacity: number);
 		/** ... */
 		get(): void;
 		/** ... */
@@ -2711,12 +3705,283 @@ declare module 'rhino3dm' {
 	}
 
 	class PointCloud extends GeometryBase {
+		/**
+		 * Gets the number of points in this pointcloud.
+		 */
+		count: number;
+		/**
+		 * Gets the number of points that have their Hidden flag set.
+		 */
+		hiddenPointCount: number;
+		/**
+		 * Gets a value indicating whether or not the points in this
+		 * pointcloud have colors assigned to them.
+		 */
+		containsColors: boolean;
+		/**
+		 * Gets a value indicating whether or not the points in this
+		 * pointcloud have normals assigned to them.
+		 */
+		containsNormals: boolean;
+		/**
+		 * Gets a value indicating whether or not the points in this
+		 * pointcloud have hidden flags assigned to them.
+		 */
+		containsHiddenFlags: boolean;
+		/**
+		 * @description Destroys the color information in this point cloud.
+		 */
+		clearColors(): void;
+		/**
+		 * @description Destroys the normal vector information in this point cloud.
+		 */
+		clearNormals(): void;
+		/**
+		 * @description Destroys the hidden flag information in this point cloud.
+		 */
+		clearHiddenFlags(): void;
+		/**
+		 * @description Appends a new PointCloudItem to the end of this point cloud.
+		 * @returns {PointCloudItem} The newly appended item.
+		 */
+		appendNew(): PointCloudItem;
+		/**
+		 * @description Inserts a new  at a specific position of the point cloud.
+		 * @param {number} index Index of new item.
+		 * @returns {PointCloudItem} The newly inserted item.
+		 */
+		insertNew(index:number): PointCloudItem;
+		/**
+		 * @description Copies the point values of another pointcloud into this one.
+		 * @param {PointCloud} other PointCloud to merge with this one.
+		 */
+		merge(other:PointCloud): void;
+		/**
+		 * @description Append a new point to the end of the list.
+		 * @param {number[]} point Point to append.
+		 */
+		add(point:number[]): void;
+		/**
+		 * @description Append a new point to the end of the list.
+		 * @param {number[]} point Point to append.
+		 */
+		add(point:number[]): void;
+		/**
+		 * @description Append a new point to the end of the list.
+		 * @param {number[]} point Point to append.
+		 */
+		add(point:number[]): void;
+		/**
+		 * @description Append a new point to the end of the list.
+		 * @param {number[]} point Point to append.
+		 */
+		add(point:number[]): void;
+		/**
+		 * @description Appends a collection of points to this point cloud.
+		 * @param {Point3d[]} points Points to append.
+		 */
+		addRange(points:Point3d[]): void;
+		/**
+		 * @description Appends a collection of points to this point cloud.
+		 * @param {Point3d[]} points Points to append.
+		 */
+		addRange(points:Point3d[]): void;
+		/**
+		 * @description Appends a collection of points to this point cloud.
+		 * @param {Point3d[]} points Points to append.
+		 */
+		addRange(points:Point3d[]): void;
+		/**
+		 * @description Appends a collection of points to this point cloud.
+		 * @param {Point3d[]} points Points to append.
+		 */
+		addRange(points:Point3d[]): void;
+		/**
+		 * @description Inserts a new point into the point list.
+		 * @param {number} index Insertion index.
+		 * @param {number[]} point Point to append.
+		 */
+		insert(index:number,point:number[]): void;
+		/**
+		 * @description Inserts a new point into the point list.
+		 * @param {number} index Insertion index.
+		 * @param {number[]} point Point to append.
+		 */
+		insert(index:number,point:number[]): void;
+		/**
+		 * @description Inserts a new point into the point list.
+		 * @param {number} index Insertion index.
+		 * @param {number[]} point Point to append.
+		 */
+		insert(index:number,point:number[]): void;
+		/**
+		 * @description Inserts a new point into the point list.
+		 * @param {number} index Insertion index.
+		 * @param {number[]} point Point to append.
+		 */
+		insert(index:number,point:number[]): void;
+		/**
+		 * @description Append a collection of points to this point cloud.
+		 * @param {number} index Index at which to insert the new collection.
+		 * @param {Point3d[]} points Points to append.
+		 */
+		insertRange(index:number,points:Point3d[]): void;
+		/**
+		 * @description Remove the point at the given index.
+		 * @param {number} index Index of point to remove.
+		 */
+		removeAt(index:number): void;
+		/**
+		 * @description Copy all the point coordinates in this point cloud to an array.
+		 * @returns {Point3d[]} An array containing all the points in this point cloud.
+		 */
+		getPoints(): Point3d[];
+		/**
+		 * @description Returns the location of the point at a specific index.
+		 * @param {number} index The index.
+		 */
+		pointAt(index:number): number[];
+		/**
+		 * @description Copy all the normal vectors in this point cloud to an array.
+		 * @returns {any[]} An array containing all the normals in this point cloud.
+		 */
+		getNormals(): any[];
+		/**
+		 * @description Copy all the point colors in this point cloud to an array.
+		 * @returns {number[][]} An array containing all the colors in this point cloud.
+		 */
+		getColors(): number[][];
+		/** ... */
+		closestPoint(): void;
+	}
+
+	class PointCloudItem {
+		/**
+		 * Gets or sets the location of this point cloud item.
+		 */
+		location: number[];
+		/**
+		 * Gets or sets the X component of this point cloud item location.
+		 */
+		x: number;
+		/**
+		 * Gets or sets the Y component of this point cloud item location.
+		 */
+		y: number;
+		/**
+		 * Gets or sets the Z component of this point cloud item location.
+		 */
+		z: number;
+		/**
+		 * Gets or sets the normal vector for this point cloud item.
+		 */
+		normal: number[];
+		/**
+		 * Gets or sets the color of this point cloud item.
+		 */
+		color: number[];
+		/**
+		 * Gets or sets the hidden flag of this point cloud item.
+		 */
+		hidden: boolean;
+		/**
+		 * Gets the index of this point cloud item.
+		 */
+		index: number;
 	}
 
 	class PointGrid extends GeometryBase {
 	}
 
-	class Polycurve extends Curve {
+	class PolyCurve extends Curve {
+		/**
+		 * Gets the number of segments that make up this Polycurve.
+		 */
+		segmentCount: number;
+		/**
+		 * Gets a value indicating whether or not a PolyCurve contains nested PolyCurves.
+		 */
+		isNested: boolean;
+		/**
+		 * This is a quick way to see if the curve has gaps between the sub curve segments.
+		 */
+		hasGap: boolean;
+		/**
+		 * @description Gets the segment curve at the given index.
+		 * @param {number} index Index of segment to retrieve.
+		 * @returns {Curve} The segment at the given index or null on failure.
+		 */
+		segmentCurve(index:number): Curve;
+		/**
+		 * @description Explodes nested polycurve segments and reconstructs this curve from the shattered remains.
+		The result will have not have any PolyCurves as segments but it will have identical
+		locus and parameterization.
+		 * @returns {boolean} true if any nested PolyCurve was found and absorbed, false if no PolyCurve segments could be found.
+		 */
+		removeNesting(): boolean;
+		/**
+		 * @description Explodes this PolyCurve into a list of Curve segments. This will not explode nested polycurves.
+		Call  first if you need all individual segments.
+		 * @returns {Curve[]} An array of polycurve segments.
+		 */
+		explode(): Curve[];
+		/**
+		 * @description Appends and matches the start of the line to the end of polycurve.
+		This function will fail if the polycurve is closed.
+		 * @param {Line} line Line segment to append.
+		 * @returns {boolean} true on success, false on failure.
+		 */
+		append(line:Line): boolean;
+		/**
+		 * @description Appends and matches the start of the line to the end of polycurve.
+		This function will fail if the polycurve is closed.
+		 * @param {Line} line Line segment to append.
+		 * @returns {boolean} true on success, false on failure.
+		 */
+		append(line:Line): boolean;
+		/**
+		 * @description Appends and matches the start of the line to the end of polycurve.
+		This function will fail if the polycurve is closed.
+		 * @param {Line} line Line segment to append.
+		 * @returns {boolean} true on success, false on failure.
+		 */
+		append(line:Line): boolean;
+		/**
+		 * @description Appends the curve to the polycurve without changing the new segment's geometry.
+		This function will fail if the PolyCurve is closed or if SegmentCount > 0 and the new segment is closed.
+		 * @param {Curve} curve Segment to append.
+		 * @returns {boolean} true on success, false on failure.
+		 */
+		appendSegment(curve:Curve): boolean;
+		/**
+		 * @description Converts a polycurve parameter to a segment curve parameter.
+		 * @param {number} polycurveParameter Parameter on PolyCurve to convert.
+		 * @returns {number} Segment curve evaluation parameter or UnsetValue if the
+		segment curve parameter could not be computed.
+		 */
+		segmentCurveParameter(polycurveParameter:number): number;
+		/**
+		 * @description Converts a segment curve parameter to a polycurve parameter.
+		 * @param {number} segmentIndex Index of segment.
+		 * @param {number} segmentCurveParameter Parameter on segment.
+		 * @returns {number} Polycurve evaluation parameter or UnsetValue if the polycurve curve parameter could not be computed.
+		 */
+		polyCurveParameter(segmentIndex:number,segmentCurveParameter:number): number;
+		/**
+		 * @description Returns the polycurve subdomain assigned to a segment curve.
+		 * @param {number} segmentIndex Index of segment.
+		 * @returns {number[]} The polycurve subdomain assigned to a segment curve.
+		Returns Interval.Unset if segment_index < 0 or segment_index >= Count().
+		 */
+		segmentDomain(segmentIndex:number): number[];
+		/**
+		 * @description Finds the segment used for evaluation at polycurve_parameter.
+		 * @param {number} polycurveParameter Parameter on polycurve for segment lookup.
+		 * @returns {number} Index of the segment used for evaluation at polycurve_parameter.
+		If polycurve_parameter < Domain.Min(), then 0 is returned.
+		If polycurve_parameter > Domain.Max(), then Count()-1 is returned.
+		 */
+		segmentIndex(polycurveParameter:number): number;
 	}
 
 	class Polyline extends Point3dList {
@@ -2739,6 +4004,8 @@ declare module 'rhino3dm' {
 		 * Gets the total length of the polyline.
 		 */
 		length: number;
+
+		constructor(initialCapacity: number);
 		/**
 		 * @description Determines whether the polyline is closed, provided a tolerance value.
 		 * @param {number} tolerance If the distance between the start and end point of the polyline
@@ -2775,9 +4042,9 @@ declare module 'rhino3dm' {
 		toNurbsCurve(): NurbsCurve;
 		/**
 		 * @description Constructs a polyline curve representation of this polyline.
-		 * @returns {Polylinecurve} A curve shaped like this polyline or null on failure.
+		 * @returns {PolylineCurve} A curve shaped like this polyline or null on failure.
 		 */
-		toPolylineCurve(): Polylinecurve;
+		toPolylineCurve(): PolylineCurve;
 		/**
 		 * @description Create a regular polygon inscribed in a circle. The vertices of the polygon will be on the circle.
 		 * @param {Circle} circle The circle.
@@ -2803,7 +4070,7 @@ declare module 'rhino3dm' {
 		static createStarPolygon(circle:Circle,radius:number,cornerCount:number): Polyline;
 	}
 
-	class Polylinecurve extends Curve {
+	class PolylineCurve extends Curve {
 		/**
 		 * Gets the number of points in this polyline.
 		 */
@@ -2918,6 +4185,16 @@ declare module 'rhino3dm' {
 	}
 
 	class RevSurface extends Surface {
+		/**
+		 * @description Constructs a new surface of revolution from a generatrix curve and an axis.
+		This overload accepts a slice start and end angles.
+		 * @param {Curve} revoluteCurve A generatrix.
+		 * @param {Line} axisOfRevolution An axis.
+		 * @param {number} startAngleRadians An angle in radias for the start.
+		 * @param {number} endAngleRadians An angle in radias for the end.
+		 * @returns {RevSurface} A new surface of revolution, or null if any of the inputs is invalid or on error.
+		 */
+		static create(revoluteCurve:Curve,axisOfRevolution:Line,startAngleRadians:number,endAngleRadians:number): RevSurface;
 	}
 
 	class Sphere {
@@ -2949,6 +4226,8 @@ declare module 'rhino3dm' {
 		 * at V value -Math.Pi/2.
 		 */
 		southPole: number[];
+
+		constructor(center: number[], radius: number);
 		/**
 		 * @description Computes the parallel at a specific latitude angle.
 		The angle is specified in radians.
@@ -3008,6 +4287,9 @@ declare module 'rhino3dm' {
 		toJSON(): void;
 		/** ... */
 		static decode(): void;
+	}
+
+	class SubD extends GeometryBase {
 	}
 
 	class Surface extends GeometryBase {
@@ -3082,6 +4364,12 @@ declare module 'rhino3dm' {
 		 */
 		isAtSeam(u:number,v:number): number;
 		/**
+		 * @description Gets a NURBS surface representation of this surface. Default
+		tolerance of 0.0 is used.
+		 * @returns {NurbsSurface} NurbsSurface on success, null on failure.
+		 */
+		toNurbsSurface(): NurbsSurface;
+		/**
 		 * @description Tests a surface to see if it is planar to zero tolerance.
 		 * @returns {boolean} true if the surface is planar (flat) to within RhinoMath.ZeroTolerance units (1e-12).
 		 */
@@ -3109,6 +4397,29 @@ declare module 'rhino3dm' {
 	}
 
 	class SurfaceProxy extends Surface {
+	}
+
+	class TextDot extends GeometryBase {
+		/**
+		 * Gets or sets the position of the textdot.
+		 */
+		point: number[];
+		/**
+		 * Gets or sets the primiary text of the textdot.
+		 */
+		text: string;
+		/**
+		 * Gets or sets the secondary text of the textdot.
+		 */
+		secondaryText: string;
+		/**
+		 * Height of font used for displaying the dot
+		 */
+		fontHeight: number;
+		/**
+		 * Font face used for displaying the dot
+		 */
+		fontFace: string;
 	}
 
 	class Texture {
@@ -3196,8 +4507,18 @@ declare module 'rhino3dm' {
 		swapTextureCoordinate(): void;
 		/** ... */
 		tileTextureCoordinate(): void;
-		/** ... */
-		evaluate(): void;
+		/**
+		 * @description Evaluate the mapping to get a texture coordinate
+		 * @param {number[]} p Vertex location
+		 * @param {number[]} n If the mapping projection is ray_projection, then this
+		is the vertex unit normal.  Otherwise n is ignored.
+		 * @param {number[]} t Texture coordinate (u,v,w)
+		 * @returns {number} Nonzero if evaluation is successful.  When the mapping is a box or
+		capped cylinder mapping, the value indicates which side was evaluated.
+		Cylinder mapping: 1 = cylinder wall, 2 = bottom cap, 3 = top cap
+		Box mapping: 1 = front, 2 = right, 3 = back, 4 = left, 5 = bottom, 6 = top
+		 */
+		evaluate(p:number[],n:number[],t:number[]): number;
 	}
 
 	class Transform {
@@ -3223,6 +4544,8 @@ declare module 'rhino3dm' {
 		 * True if all values are 0 and M33 is 1
 		 */
 		isZeroTransformation: boolean;
+
+		constructor(diagonalValue: number);
 		/** ... */
 		static identity(): void;
 		/** ... */
@@ -3272,11 +4595,15 @@ declare module 'rhino3dm' {
 		 * @description Flip row/column values
 		 */
 		transpose(): Transform;
+		/**
+		 * @description Return the matrix as a linear array of 16 float values
+		 */
+		toFloatArray(): number[];
 	}
 
 	class ViewInfo {
 		/**
-		 * Gets or sets the name of the NamedView.
+		 * Gets or sets the name of the view.
 		 */
 		name: string;
 		/**
@@ -3377,6 +4704,19 @@ declare module 'rhino3dm' {
 		 */
 		camera35mmLensLength: number;
 		/**
+		 * Sets the viewport's id to the value used to
+		 * uniquely identify this viewport.
+		 * There is no approved way to change the viewport
+		 * id once it is set in order to maintain consistency
+		 * across multiple viewports and those routines that
+		 * manage them.
+		 */
+		id: string;
+		/** ... */
+		static defaultTop(): void;
+		/** ... */
+		static defaultPerspective(): void;
+		/**
 		 * @description Use this function to change projections of valid viewports
 		from parallel to perspective.  It will make common additional
 		adjustments to the frustum and camera location so the resulting
@@ -3472,6 +4812,16 @@ declare module 'rhino3dm' {
 		 */
 		getXform(sourceSystem:CoordinateSystem,destinationSystem:CoordinateSystem): Transform;
 		/**
+		 * @description Extends this viewport view to include a bounding box.
+		Use Extents() as a quick way to set a viewport to so that bounding
+		volume is inside of a viewports frustrum.
+		The view angle is used to determine the position of the camera.
+		 * @param {number} halfViewAngleRadians 1/2 smallest subtended view angle in radians.
+		 * @param {BoundingBox} bbox A bounding box in 3d world coordinates.
+		 * @returns {boolean} true if the operation succeeded; otherwise, false.
+		 */
+		extents(halfViewAngleRadians:number,bbox:BoundingBox): boolean;
+		/**
 		 * @description Dolly the camera location and so that the view frustum contains
 		all of the document objects that can be seen in view.
 		If the projection is perspective, the camera angle is not changed.
@@ -3481,5 +4831,35 @@ declare module 'rhino3dm' {
 		 * @returns {boolean} True if successful.
 		 */
 		dollyExtents(border:number): boolean;
+		/**
+		 * @description Return a point on the central axis of the view frustum.
+		This point is a good choice for a general purpose target point.
+		 * @param {number} targetDistance If targetDistance > 0.0, then the distance from the returned
+		point to the camera plane will be targetDistance. Note that
+		if the frustum is not symmetric, the distance from the
+		returned point to the camera location will be larger than
+		targetDistance.
+		If targetDistance == ON_UNSET_VALUE and the frustum
+		is valid with near > 0.0, then 0.5*(near + far) will be used
+		as the targetDistance.
+		 * @returns {number[]} A point on the frustum's central axis.  If the viewport or input
+		is not valid, then ON_3dPoint::UnsetPoint is returned.
+		 */
+		frustumCenterPoint(targetDistance:number): number[];
+		/**
+		 * @description Gets the distance from the target point to the camera plane.
+		Note that if the frustum is not symmetric, then this distance
+		is shorter than the distance from the target to the camera location.
+		 * @param {boolean} useFrustumCenterFallback If bUseFrustumCenterFallback is false and the target point is
+		not valid, then ON_UNSET_VALUE is returned.
+		If bUseFrustumCenterFallback is true and the frustum is valid
+		and current target point is not valid or is behind the camera,
+		then 0.5*(near + far) is returned.
+		 * @returns {number} Shortest signed distance from camera plane to target point.
+		If the target point is on the visible side of the camera,
+		a positive value is returned.  ON_UNSET_VALUE is returned
+		when the input of view is not valid.
+		 */
+		targetDistance(useFrustumCenterFallback:boolean): number;
 	}
 }
